@@ -1,4 +1,4 @@
-import { ethers } from "hardhat";
+import { ethers, upgrades } from "hardhat";
 import { expect } from "chai";
 
 import { Foo } from "../../../types/Foo";
@@ -18,7 +18,9 @@ describe("Foo Token Unit tests", function () {
 
   describe("Foo", function () {
     beforeEach(async function () {
-      foo = await new Foo__factory(admin).deploy();
+      const foo__factory = await new Foo__factory(admin);
+      foo = (await upgrades.deployProxy(foo__factory)) as Foo;
+      await foo.deployed();
     });
 
     it("has a name", async function () {
@@ -34,7 +36,7 @@ describe("Foo Token Unit tests", function () {
     });
 
     it("has total supply of", async function () {
-      expect(await foo.connect(admin).totalSupply()).to.equal("100000000000");
+      expect(await foo.connect(admin).totalSupply()).to.equal("1000000000000000000000000000");
     });
   });
 });

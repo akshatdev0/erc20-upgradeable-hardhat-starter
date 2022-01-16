@@ -1,5 +1,6 @@
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
+import "@openzeppelin/hardhat-upgrades";
 import "hardhat-deploy";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
@@ -121,7 +122,7 @@ const config: HardhatUserConfig = {
     deployments: "./deployments",
   },
   solidity: {
-    version: "0.8.0",
+    version: "0.8.3",
     settings: {
       // metadata: {
       // Not including the metadata hash

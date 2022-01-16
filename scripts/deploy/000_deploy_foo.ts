@@ -9,10 +9,14 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
   await deploy(CONTRACTS.foo, {
     from: deployer,
-    args: [],
+    proxy: {
+      proxyContract: "OpenZeppelinTransparentProxy",
+      execute: {
+        methodName: "initialize",
+        args: [],
+      },
+    },
     log: true,
-    skipIfAlreadyDeployed: true,
-    autoMine: true, // speed up deployment on local network (ganache, hardhat), no effect on live networks
   });
 };
 
